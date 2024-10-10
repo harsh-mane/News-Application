@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:abc_news/category.dart';
 import 'package:abc_news/model.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -17,7 +18,6 @@ class _HomeState extends State<Home> {
   TextEditingController searchController = TextEditingController();
   List<NewsQueryModel> newsModelList = <NewsQueryModel>[];
   List<NewsQueryModel> newsModelListCarousel = <NewsQueryModel>[];
-
   List<String> navBarItem = [
     "Top News",
     "India",
@@ -132,10 +132,17 @@ class _HomeState extends State<Home> {
                 SizedBox(
                   height: 50,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, (
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Category(Query: navBarItem[index]))
+                      ));
+                    },
                     child: ListView.builder(
                       shrinkWrap: true,
-                      scrollDirection: Axis.horizontal, 
+                      scrollDirection: Axis.horizontal,
                       itemCount: navBarItem.length,
                       itemBuilder: (context, index) {
                         return Container(
@@ -165,7 +172,8 @@ class _HomeState extends State<Home> {
                       items: newsModelListCarousel.map((instance) {
                         return Builder(builder: (BuildContext context) {
                           return Container(
-                            child: Card(elevation: 15,
+                            child: Card(
+                              elevation: 15,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: Stack(
@@ -177,7 +185,6 @@ class _HomeState extends State<Home> {
                                       // fit: BoxFit.fitWidth,
                                       // width: double.infinity,
                                       // height: double.infinity,
-                                      
                                     ),
                                   ),
                                   Positioned(
@@ -204,7 +211,8 @@ class _HomeState extends State<Home> {
                                           margin: const EdgeInsets.symmetric(
                                               horizontal: 10),
                                           child: Text(
-                                            instance.newsHead,maxLines: 2,
+                                            instance.newsHead,
+                                            maxLines: 2,
                                             style: const TextStyle(
                                                 color: Color.fromARGB(
                                                     255, 59, 6, 5),
@@ -248,81 +256,76 @@ class _HomeState extends State<Home> {
                           itemCount: newsModelList.length,
                           itemBuilder: (context, index) {
                             return Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 5),
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  
-                                  elevation: 10,
-                                  child: Stack(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(15),
-                                        child: Image.network(
-                                          newsModelList[index].newsImg,
-                                          // fit: BoxFit.cover,
-                                          // height: 200,
-                                          // width: double.maxFinite,
-                                          // height: double.infinity,
-                                          // width: double.infinity,
-                                          errorBuilder:
-                                              (context, error, stackTrace) =>
-                                                  const SizedBox(),
-                                        ),
-                                      ),
-                                      Positioned(
-                                          left: 0,
-                                          right: 0,
-                                          bottom: 0,
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                  gradient: LinearGradient(
-                                                      colors: [
-                                                        Colors.greenAccent
-                                                            .withOpacity(0),
-                                                        const Color.fromARGB(
-                                                            255, 252, 252, 252)
-                                                      ],
-                                                      begin:
-                                                          Alignment.topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter)),
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      15, 15, 10, 8),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    newsModelList[index]
-                                                        .newsHead,
-                                                    maxLines: 1,
-                                                    style: const TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  Text(
-                                                    newsModelList[index]
-                                                        .newsDes,
-                                                    maxLines: 1,
-                                                    style: const TextStyle(
-                                                        color: Color.fromARGB(
-                                                            255, 26, 12, 2),
-                                                        fontSize: 12),
-                                                  )
-                                                ],
-                                              ))),
-                                    ],
-                                  ),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
                                 ),
-                                );
+                                elevation: 10,
+                                child: Stack(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Image.network(
+                                        newsModelList[index].newsImg,
+                                        // fit: BoxFit.cover,
+                                        // height: 200,
+                                        // width: double.maxFinite,
+                                        // height: double.infinity,
+                                        // width: double.infinity,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                const SizedBox(),
+                                      ),
+                                    ),
+                                    Positioned(
+                                        left: 0,
+                                        right: 0,
+                                        bottom: 0,
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                gradient: LinearGradient(
+                                                    colors: [
+                                                      Colors.greenAccent
+                                                          .withOpacity(0),
+                                                      const Color.fromARGB(
+                                                          255, 252, 252, 252)
+                                                    ],
+                                                    begin: Alignment.topCenter,
+                                                    end: Alignment
+                                                        .bottomCenter)),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                15, 15, 10, 8),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  newsModelList[index].newsHead,
+                                                  maxLines: 1,
+                                                  style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  newsModelList[index].newsDes,
+                                                  maxLines: 1,
+                                                  style: const TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 26, 12, 2),
+                                                      fontSize: 12),
+                                                )
+                                              ],
+                                            ))),
+                                  ],
+                                ),
+                              ),
+                            );
                           }),
                       Container(
                         padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
@@ -337,7 +340,7 @@ class _HomeState extends State<Home> {
                       )
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
