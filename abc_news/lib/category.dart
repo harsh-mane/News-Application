@@ -18,16 +18,17 @@ class _CategoryState extends State<Category> {
 
   //
 
-  getNewsByQuery(dynamic query) async {
-    String url = "";
-    if (query == "Top News" || query == "India") {
-     url =
-          "https://newsdata.io/api/1/sources?country=in&apikey=pub_5585123fa9fd4796b745d58859eac3106978b";
-    } else {
-      url =
-          "https://newsapi.org/v2/everything?q=tesla&from=2024-09-10&sortBy=publishedAt&apiKey=76330944c0d743fea05acff6f5c8a931";
-    }
-
+  getNewsByQuery(String query) async {
+    // String url = "";
+    // if (query == "Top News" || query == "India") {
+    //  url =
+    //       "https://newsdata.io/api/1/sources?country=in&apikey=pub_5585123fa9fd4796b745d58859eac3106978b";
+    // } else {
+    //   url =
+    //       "https://newsapi.org/v2/everything?q=tesla&from=2024-09-10&sortBy=publishedAt&apiKey=76330944c0d743fea05acff6f5c8a931";
+    // }
+    final url =
+        'https://newsapi.org/v2/everything?q=$query&from=2024-09-11&sortBy=publishedAt&apiKey=76330944c0d743fea05acff6f5c8a931';
     Response response = await get(Uri.parse(url));
     Map data = jsonDecode(response.body);
     setState(() {
@@ -53,7 +54,7 @@ class _CategoryState extends State<Category> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ABC NEWS"),
+        title: Text(widget.Query),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -65,12 +66,15 @@ class _CategoryState extends State<Category> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(width: 12,),
+                    const SizedBox(
+                      width: 12,
+                    ),
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 15),
                       child: Text(
                         widget.Query,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 28),
                       ),
                     ),
                   ],
@@ -82,8 +86,8 @@ class _CategoryState extends State<Category> {
                   itemCount: newsModelList.length,
                   itemBuilder: (context, index) {
                     return Container(
-                      margin:
-                          const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -119,8 +123,8 @@ class _CategoryState extends State<Category> {
                                             ],
                                             begin: Alignment.topCenter,
                                             end: Alignment.bottomCenter)),
-                                    padding:
-                                        const EdgeInsets.fromLTRB(15, 15, 10, 8),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        15, 15, 10, 8),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -137,8 +141,8 @@ class _CategoryState extends State<Category> {
                                           newsModelList[index].newsDes,
                                           maxLines: 1,
                                           style: const TextStyle(
-                                              color:
-                                                  Color.fromARGB(255, 26, 12, 2),
+                                              color: Color.fromARGB(
+                                                  255, 26, 12, 2),
                                               fontSize: 12),
                                         )
                                       ],
@@ -148,7 +152,6 @@ class _CategoryState extends State<Category> {
                       ),
                     );
                   }),
-              
             ],
           ),
         ),
