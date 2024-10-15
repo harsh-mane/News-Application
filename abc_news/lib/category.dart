@@ -28,7 +28,7 @@ class _CategoryState extends State<Category> {
     //       "https://newsapi.org/v2/everything?q=tesla&from=2024-09-10&sortBy=publishedAt&apiKey=76330944c0d743fea05acff6f5c8a931";
     // }
     final url =
-        'https://newsapi.org/v2/everything?q=$query&from=2024-09-11&sortBy=publishedAt&apiKey=76330944c0d743fea05acff6f5c8a931';
+        'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=76330944c0d743fea05acff6f5c8a931';
     Response response = await get(Uri.parse(url));
     Map data = jsonDecode(response.body);
     setState(() {
