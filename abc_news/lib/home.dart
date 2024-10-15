@@ -44,6 +44,7 @@ class _HomeState extends State<Home> {
         setState(() {
           isloading = false;
         });
+        newsModelList.sublist(0, 5);
       });
     });
   }
@@ -71,6 +72,7 @@ class _HomeState extends State<Home> {
         setState(() {
           isloading = false;
         });
+       
       });
     });
   }
@@ -120,6 +122,11 @@ class _HomeState extends State<Home> {
                             // ListView.builder(itemBuilder: (context, index) => navBarItem,
 
                             // );
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Category(
+                                        Query: searchController.text)));
                           },
                           child: Container(
                             margin: const EdgeInsets.fromLTRB(3, 0, 7, 0),
@@ -130,7 +137,13 @@ class _HomeState extends State<Home> {
                           child: TextField(
                             controller: searchController,
                             textInputAction: TextInputAction.search,
-                            onSubmitted: (value) {},
+                            onSubmitted: (value) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Category(Query: value)));
+                            },
                             decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "Take a Ride"),
@@ -351,7 +364,13 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Category(Query: "Technology")));
+                                },
                                 child: const Text("Show More"))
                           ],
                         ),
